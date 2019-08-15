@@ -1,3 +1,5 @@
+#Noel Viscome Eliezer – noel.eliezer@icloud.com
+
 # recebe entradas no formato 4 2 0
 input_list = input("Input: ").split()
 # converte entradas para lista de int
@@ -11,7 +13,7 @@ def Normalize(input:list):
 # algoritmo de kadane
 # complexidade O(n), faz todas as somas temporárias em um loop e preserva a maior
 in_array = Normalize(input_list)
-global_max = max_here = tempstart = start = end = 0
+max_global = max_here = tempstart = start = end = 0
 
 for i in range(0, len(in_array)):
     # adiciona o próximo elemento do array à soma temporária
@@ -21,8 +23,8 @@ for i in range(0, len(in_array)):
         max_here = 0
         tempstart = i + 1
     # atualiza a soma global caso seja maior
-    elif max_here >= global_max:
-        global_max = max_here
+    elif max_here >= max_global:
+        max_global = max_here
         start = tempstart
         end = i
 print (str(start) + ", " + str(end - start + 1))
