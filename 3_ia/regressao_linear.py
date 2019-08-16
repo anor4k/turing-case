@@ -58,10 +58,10 @@ regressor.score(temp_test, salt_test)
 # O valor de cerca de aproximadamente 25% (sendo 100% o melhor valor possível, indicando perfeita paridade entre o modelo e os dados) de r<sup>2</sup> é um indicador da grande variância dos dados utilizados para a definição do regressor.
 # 
 #%% [markdown]
-# Finalmente, analisamos o score de validação cruzada para determinar o erro quadrado médio negativo entre uma série de 10 validações com a amostra original.
+# Finalmente, utilizamos validação cruzada para determinar o erro quadrado médio negativo entre uma série de 5 validações com a amostra original.
 #%%
 from sklearn.model_selection import cross_val_score
-scores = cross_val_score(regressor, temp, salt, cv=10, scoring='neg_mean_squared_error')
+scores = cross_val_score(regressor, temp, salt, cv=5, scoring='neg_mean_squared_error')
 print(scores)
 
 #%% [markdown]
