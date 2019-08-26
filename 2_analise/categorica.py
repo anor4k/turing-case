@@ -20,16 +20,16 @@ from scipy import stats
 
 #%%
 kickst = pd.read_csv('ks-projects-201801.csv', parse_dates=['deadline', 'launched'])
-kickst = kickst[kickst.pledged > 0]
+kickst = kickst[(kickst.pledged > 0) & (kickst.backers > 0)]
 kickst['pledged_ratio'] = kickst['pledged'] / kickst['goal']
 #%% [markdown]
-# Descrição sobre uso da escala logarítmica
+# Utilizaremos a escala logarítmica para analisar os dados de maneira mais compreensiva, visto que temos projetos desde a casa das dezenas até milhares de dólares.
 #%%
 kickst['log_pledged_ratio'] = np.log10(kickst['pledged_ratio'])
 kickst['log_usd_pledged_real'] = np.log10(kickst['usd_pledged_real'])
 kickst['log_usd_goal_real'] = np.log10(kickst['usd_goal_real'])
 kickst['log_backers'] = np.log10(kickst['backers'])
-kickst = kickst.sample(10000, 69)
+kickst = kickst.sample(10000)
 #%%
 kickst.info()
 #%%
@@ -39,7 +39,6 @@ kickst.head()
 #%% [markdown]
 # A primeira feature categórica que é interessante de ser analisada é a divisão por categorias. Primeiro vamos observar a quantidade de projetos por categoria principal:
 #%%
-# sns.countplot(y = 'main_category', data = kickst, order = kickst['main_category'].value_counts().index)
 sns.countplot(y = 'main_category', order = kickst['main_category'].value_counts().index, data = kickst)
 #%% [markdown]
 # O gráfico abaixo, por outro lado, estima o valor médio de cada projeto por categoria (em escala logarítmica), e percebemos que é majoritariamente uniforme. 
@@ -56,8 +55,6 @@ plt.show()
 # Os gráficos abaixo mostram a média de arrecadação em relação à meta para cada categoria quando todos os projetos são inclusos, e apenas quando incluímos os projetos bem-sucedidos.
 #%%
 sns.barplot(x = 'log_pledged_ratio', y = 'main_category', data = kickst, order = kickst['main_category'].value_counts().index)
-
 #%%
 sns.barplot(x = 'log_pledged_ratio', y = 'main_category', data = kickst[kickst.state == "successful"], order = kickst['main_category'].value_counts().index)
-
 #%%

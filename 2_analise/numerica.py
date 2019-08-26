@@ -20,7 +20,7 @@ from scipy import stats
 
 #%%
 kickst = pd.read_csv('ks-projects-201801.csv', parse_dates=['deadline', 'launched'])
-kickst = kickst[kickst.pledged > 0]
+kickst = kickst[(kickst.pledged > 0) & (kickst.backers > 0)]
 kickst['pledged_ratio'] = kickst['pledged'] / kickst['goal']
 #%% [markdown]
 # Usar escala logarítmica torna a visualização dos dados mais simples, e coloca acima de 0 os projetos que atingiram a meta, e abaixo de 0 os que não atingiram
